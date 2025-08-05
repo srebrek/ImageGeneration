@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API Generowania Obrazów</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; }
+        input { width: 100%; padding: 8px; margin-bottom: 10px; }
+        button { padding: 10px 15px; }
+        #result-image { max-width: 100%; margin-top: 20px; border: 1px solid #ccc; }
+        #status-message { color: #555; }
+    </style>
+</head>
+<body>
+
+    <h1>Testowanie API Stable Diffusion</h1>
+    <p>Wpisz swój prompt i kliknij przycisk, aby wygenerować obraz.</p>
+
+    <input type="text" id="prompt-input" placeholder="np. a cat wearing a wizard hat...">
+    <button id="generate-button">Generuj Obraz</button>
+
+    <p id="status-message"></p>
+    <img id="result-image" src="" alt="Wygenerowany obraz pojawi się tutaj">
+
+    <script>
+        // Pobieramy odniesienia do elementów na stronie
+        const promptInput = document.getElementById('prompt-input');
+        const generateButton = document.getElementById('generate-button');
+        const resultImage = document.getElementById('result-image');
+        const statusMessage = document.getElementById('status-message');
+
+        // Ustawienie domyślnej wartości w polu tekstowym dla wygody
+        promptInput.value = "a beautiful oil painting of a cat wearing a wizard hat";
+
+        // Dodajemy nasłuchiwanie na kliknięcie przycisku
+        generateButton.addEventListener('click', async () => {
+            const prompt = promptInput.value;
+            if (!prompt) {
+                alert('Prompt nie może być pusty!');
+                return;
+            }
+
+            // Przygotowujemy UI do generowania
+            statusMessage.textContent = 'Generowanie obrazu... To może potrwać chwilę.';
+            resultImage.src = ''; // Czyścimy poprzedni obraz
+            generateButton.disabled = true; // Blokujemy przycisk
+
+            try {
+                // Używamy 'fetch' do wysłania żądania POST
+                const response = await fetch('http://localhost:5015/generate', { // <-- SPRAWDŹ PORT!
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json' // Mówimy serwerowi, że wysyłamy JSON
+                    },
+                    body: JSON.stringify({ prompt: prompt }) // Tworzymy ciało JSON
+                });
+
+                // Sprawdzamy, czy serwer odpowiedział sukcesem (status 200-299)
+                if (!response.ok) {
+                    throw new Error(`Błąd serwera: ${response.status} ${response.statusText}`);
+                }
+
+                // Odpowiedzią jest obraz, więc konwertujemy go do obiektu Blob
+                const imageBlob = await response.blob();
+                
+                // Tworzymy tymczasowy URL dla obiektu Blob, aby móc go wyświetlić w tagu <img>
+                const imageUrl = URL.createObjectURL(imageBlob);
+                
+                // Ustawiamy źródło obrazka na nowo utworzony URL
+                resultImage.src = imageUrl;
+                statusMessage.textContent = 'Obraz wygenerowany!';
+
+            } catch (error) {
+                // Obsługa błędów sieciowych lub błędów serwera
+                statusMessage.textContent = `Wystąpił błąd: ${error.message}`;
+                console.error('Szczegóły błędu:', error);
+            } finally {
+                // Niezależnie od wyniku, odblokowujemy przycisk
+                generateButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
