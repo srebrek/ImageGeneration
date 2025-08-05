@@ -1,0 +1,10 @@
+@ImageGeneration_HostAddress = http://localhost:5015
+
+POST {{ImageGeneration_HostAddress}}/generate
+Content-Type: application/json
+
+{
+  "prompt": "a beautiful oil painting of a cat wearing a wizard hat"
+}
+
+###

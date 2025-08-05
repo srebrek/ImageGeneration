@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageGeneration", "ImageGeneration\ImageGeneration.csproj", "{23027F65-31E7-438E-8C62-C591DBC9D128}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StableDiffusion.ML.OnnxRuntime", "StableDiffusion.ML.OnnxRuntime\StableDiffusion.ML.OnnxRuntime.csproj", "{9F1E79AB-552C-23A7-3231-669D7CC11C01}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23027F65-31E7-438E-8C62-C591DBC9D128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23027F65-31E7-438E-8C62-C591DBC9D128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23027F65-31E7-438E-8C62-C591DBC9D128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23027F65-31E7-438E-8C62-C591DBC9D128}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F1E79AB-552C-23A7-3231-669D7CC11C01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F1E79AB-552C-23A7-3231-669D7CC11C01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F1E79AB-552C-23A7-3231-669D7CC11C01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F1E79AB-552C-23A7-3231-669D7CC11C01}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EEB057D7-88BA-42E9-B73D-03947C460F14}
+	EndGlobalSection
+EndGlobal
